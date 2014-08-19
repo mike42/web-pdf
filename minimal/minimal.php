@@ -31,3 +31,4 @@ if(isset($_GET['t'])) {
 		<input type="text" name="t" /><input type="submit" value="Generate" />
 	</form>
 </body>
+</html>
