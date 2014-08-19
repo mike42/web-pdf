@@ -46,9 +46,9 @@ class LatexTemplate {
 	
 		// Send through output
 		$fp = fopen($pdf_f, 'rb');
-		header("Content-Type: application/pdf");
-		header( 'Content-Disposition: attachment; filename="' . $outp_file . '"' );
-		header("Content-Length: " . filesize($pdf_f));
+		header('Content-Type: application/pdf');
+		header('Content-Disposition: attachment; filename="' . $outp_file . '"' );
+		header('Content-Length: ' . filesize($pdf_f));
 		fpassthru($fp);
 	
 		// Final cleanup
