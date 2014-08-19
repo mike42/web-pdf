@@ -1,0 +1,67 @@
+% This file is a valid PHP file and also a valid LaTeX file
+% When processed with LaTeX, it will generate a blank template
+% Loading with PHP will fill it with details
+
+\documentclass{article}
+% Required for proper escaping
+\usepackage{textcomp} % Symbols
+\usepackage[T1]{fontenc} % Input format
+
+% Because Unicode etc.
+\usepackage{fontspec} % For loading fonts
+\setmainfont{Liberation Serif} % Has a lot more symbols than Computer Modern
+
+% Make placeholders visible
+\newcommand{\placeholder}[1]{\textbf{$<$ #1 $>$}}
+
+% Defaults for each variable
+\newcommand{\invoiceNumber}{\placeholder{Invoice Number}}
+\newcommand{\invoiceDate}{\placeholder{Invoice Date}}
+\newcommand{\invoiceBalance}{\placeholder{\$0.00}}
+\newcommand{\customerName}{\placeholder{Customer Name}}
+\newcommand{\customerAddress}{\placeholder{Customer Address}}
+
+% Fill in
+% <?php echo "\n" . "\\renewcommand{\\invoiceNumber}{" . LatexTemplate::escape($data['invoiceNumber']) . "}\n"; ?>
+% <?php echo "\n" . "\\renewcommand{\\invoiceDate}{" . LatexTemplate::escape($data['invoiceDate']) . "}\n"; ?>
+% <?php echo "\n" . "\\renewcommand{\\invoiceBalance}{" . LatexTemplate::escape($data['invoiceBalance']) . "}\n"; ?>
+% <?php echo "\n" . "\\renewcommand{\\customerName}{" . LatexTemplate::escape($data['customerName']) . "}\n"; ?>
+% <?php echo "\n" . "\\renewcommand{\\customerAddress}{" . LatexTemplate::escape($data['customerAddress']) . "}\n"; ?>
+
+% LaTeX code for the invoice
+\usepackage{tabularx}
+\setlength{\parindent}{0pt}
+\pagestyle{empty}
+
+\begin{document}
+	\section*{FooCorp Pty. Ltd.}
+
+	% Table of customer details
+	\begin{tabular}{l l}
+		Invoice	& \invoiceNumber{} \\
+		Date	& \invoiceDate{} \\
+		To		& \customerName{} \\
+				& \customerAddress{} \\
+	\end{tabular}
+
+	% Table of items on this invoice
+	\vspace{15mm}
+	\begin{tabularx}{\textwidth}{X r r | r}
+	\textbf{Item} & \textbf{Qty.} & \textbf{Unit Price} & \textbf{Total Price}\\
+	\hline
+	%<?php																		/*
+	% */ foreach($data['invoiceItem'] as $invoiceItem) {						/*
+	% */ 	echo "\n" . LatexTemplate::escape($invoiceItem['item']) . " & " .	/*
+	% */		LatexTemplate::escape($invoiceItem['qty']) . " & " .			/*
+	% */		LatexTemplate::escape($invoiceItem['price']) . " & " .			/*
+	% */		LatexTemplate::escape($invoiceItem['total']) . "\\\\\n";		/*
+	% */ } ?>
+	\hline
+	Balance Due & & & \invoiceBalance{} \\
+	\end{tabularx}
+	
+	% Footer
+	\vfill
+	By purchasing from FooCorp Pty. Ltd., you agree to be bound by our terms
+	and conditions of sale.
+\end{document}

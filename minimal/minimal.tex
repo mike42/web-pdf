@@ -1,0 +1,27 @@
+% This file is a valid PHP file and also a valid LaTeX file
+% When processed with LaTeX, it will generate a blank template
+% Loading with PHP will fill it with details
+
+\documentclass{article}
+% Required for proper escaping
+\usepackage{textcomp} % Symbols
+\usepackage[T1]{fontenc} % Input format
+
+% Because Unicode etc.
+\usepackage{fontspec} % For loading fonts
+\setmainfont{Liberation Serif} % Has a lot more symbols than Computer Modern
+
+% Make placeholders visible
+\newcommand{\placeholder}[1]{\textbf{$<$ #1 $>$}}
+
+% Defaults for each variable
+\newcommand{\test}{\placeholder{Data here}}
+
+% Fill in
+% <?php echo "\n" . "\\renewcommand{\\test}{" . LatexTemplate::escape($data['test']) . "}\n"; ?>
+
+\begin{document}
+	\section{Data From PHP}
+	\test{}
+\end{document}
+
